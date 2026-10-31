@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0813" />
+    <title>Nioret Translate — Twitch translation studio</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Nioret Translate home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>Nioret <strong>Translate</strong></span>
+        </a>
+        <div class="hackathon-tag"><span></span> Codex × TwitchCon 2026</div>
+      </header>
+
+      <main class="workspace">
+        <aside class="control-panel">
+          <div class="eyebrow">Translation control</div>
+          <h1>One chat.<br /><em>Every language.</em></h1>
+          <p class="intro">Connect a Twitch channel, choose your language, and send live translations to viewers or OBS.</p>
+
+          <div id="notice" class="notice" role="alert" hidden></div>
+
+          <section class="control-card" aria-labelledby="twitch-heading">
+            <div class="card-heading">
+              <div class="service-icon twitch-icon" aria-hidden="true">T</div>
+              <div><span class="label">Source</span><h2 id="twitch-heading">Twitch</h2></div>
+              <span id="auth-badge" class="badge neutral">Checking</span>
+            </div>
+            <div id="signed-out">
+              <p>Authorize read-only chat access with your Twitch account.</p>
+              <a id="twitch-login" class="button button-primary" href="/auth/twitch">Connect Twitch</a>
+            </div>
+            <div id="signed-in" hidden>
+              <div class="profile-row">
+                <img id="profile-image" alt="" />
+                <div><strong id="profile-name"></strong><span id="profile-login"></span></div>
+                <button id="logout" class="icon-button" title="Sign out" aria-label="Sign out">↗</button>
+              </div>
+              <form id="channel-form" class="stack-form">
+                <label for="channel">Channel login</label>
+                <div class="input-action"><span>#</span><input id="channel" name="channel" maxlength="25" autocomplete="off" required /><button type="submit">Listen</button></div>
+              </form>
+            </div>
+          </section>
+
+          <section class="control-card" aria-labelledby="language-heading">
+            <div class="card-heading compact">
+              <div class="service-icon language-icon" aria-hidden="true">文</div>
+              <div><span class="label">Output</span><h2 id="language-heading">Viewer language</h2></div>
+            </div>
+            <label class="select-wrap" for="language">
+              <select id="language" aria-label="Translation language"></select>
+              <span aria-hidden="true">⌄</span>
+            </label>
+            <p class="hint">Each open dashboard or overlay can choose a different language.</p>
+          </section>
+
+          <section class="control-card overlay-card" aria-labelledby="overlay-heading">
+            <div class="card-heading compact">
+              <div class="service-icon obs-icon" aria-hidden="true">◉</div>
+              <div><span class="label">Broadcast</span><h2 id="overlay-heading">OBS browser source</h2></div>
+            </div>
+            <div class="url-field"><code id="overlay-url"></code><button id="copy-overlay" aria-label="Copy overlay URL">Copy</button></div>
+            <a id="open-overlay" class="text-link" target="_blank" rel="noreferrer">Preview transparent overlay ↗</a>
+          </section>
+
+          <section id="demo-card" class="control-card demo-card" hidden aria-labelledby="demo-heading">
+            <div class="card-heading compact">
+              <div class="service-icon demo-icon" aria-hidden="true">D</div>
+              <div><span class="label">Local rehearsal</span><h2 id="demo-heading">Sample message</h2></div>
+            </div>
+            <form id="demo-form" class="stack-form">
+              <label for="demo-text">This tests the translation path, not Twitch.</label>
+              <div class="input-action no-prefix"><input id="demo-text" maxlength="500" value="¡Hola a todos! Qué emoción estar aquí." required /><button type="submit">Send</button></div>
+            </form>
+          </section>
+        </aside>
+
+        <section class="stage" aria-labelledby="feed-heading">
+          <div class="stage-header">
+            <div>
+              <div class="eyebrow">Live workspace</div>
+              <h2 id="feed-heading">Translated chat</h2>
+            </div>
+            <div id="connection-pill" class="connection-pill idle"><i></i><span id="connection-text">Not connected</span></div>
+          </div>
+
+          <div class="feed-frame">
+            <div class="feed-toolbar">
+              <div><span class="pulse-dot"></span><strong id="feed-channel">Waiting for a channel</strong></div>
+              <span id="feed-language">English</span>
+            </div>
+            <div id="feed" class="feed" aria-live="polite">
+              <div id="empty-state" class="empty-state">
+                <div class="signal-graphic"><span></span><span></span><span></span><span></span></div>
+                <h3>Translations will appear here</h3>
+                <p>Connect Twitch and start listening to a channel. Incoming chat is detected and translated as it arrives.</p>
+              </div>
+            </div>
+            <div class="feed-footer"><span>Language detection on</span><span>OpenAI translation</span><span>EventSub live chat</span></div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
